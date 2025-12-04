@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Nota Final</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #444444 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #667eea 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            display: none;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+            animation: slideIn 0.5s ease;
+        }
+
+        #resultado strong {
+            font-size: 32px;
+            color: #764ba2;
+            display: block;
+            margin: 10px 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .formula {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            #resultado strong {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Calculadora de Nota Final</h1>
+        <p class="subtitle">Descubra quanto você precisa tirar na prova final</p>
+
+        <div class="input-group">
+            <label for="nota1">Nota do 1º Bimestre:</label>
+            <input type="number" id="nota1" placeholder="Digite a nota" step="0.01">
+        </div>
+
+        <div class="input-group">
+            <label for="nota2">Nota do 2º Bimestre:</label>
+            <input type="number" id="nota2" placeholder="Digite a nota" step="0.01">
+        </div>
+
+        <button onclick="calcular()">Calcular Nota Final</button>
+
+        <div id="resultado"></div>
+
+        <div class="formula">
+            Fórmula: (500 - (Média × 6)) ÷ 4
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            const n1 = parseFloat(document.getElementById('nota1').value);
+            const n2 = parseFloat(document.getElementById('nota2').value);
+            const resultado = document.getElementById('resultado');
+
+            if (isNaN(n1) || isNaN(n2)) {
+                resultado.style.display = 'block';
+                resultado.innerHTML = 'Preencha todas as notas corretamente!';
+                return;
+            }
+
+            const media = (n1 + n2) / 2;
+            const ex = (500 - (media * 6)) / 4;
+
+            resultado.style.display = 'block';
+            resultado.innerHTML = `Você precisa tirar <strong>${ex.toFixed(2)}</strong> na final.`;
+        }
+
+        // Permitir calcular ao pressionar Enter
+        document.getElementById('nota1').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calcular();
+        });
+        
+        document.getElementById('nota2').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calcular();
+        });
+    </script>
+</body>
+</html>
