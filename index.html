@@ -16,7 +16,8 @@
             background: linear-gradient(135deg, #444444 0%, #ffffff 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
             padding: 20px;
         }
@@ -90,10 +91,6 @@
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
         #resultado {
             margin-top: 30px;
             padding: 25px;
@@ -135,6 +132,15 @@
             border-top: 1px solid #e0e0e0;
         }
 
+        footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            padding: 10px;
+            opacity: 0.7;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 25px;
@@ -151,6 +157,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>📚 Calculadora de Nota Final</h1>
         <p class="subtitle">Descubra quanto você precisa tirar na prova final</p>
@@ -174,6 +181,10 @@
         </div>
     </div>
 
+    <footer>
+        Criado por <strong>Marcus</strong>
+    </footer>
+
     <script>
         function calcular() {
             const n1 = parseFloat(document.getElementById('nota1').value);
@@ -193,11 +204,10 @@
             resultado.innerHTML = `Você precisa tirar <strong>${ex.toFixed(2)}</strong> na final.`;
         }
 
-        // Permitir calcular ao pressionar Enter
         document.getElementById('nota1').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') calcular();
         });
-        
+
         document.getElementById('nota2').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') calcular();
         });
